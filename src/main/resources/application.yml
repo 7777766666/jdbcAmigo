@@ -12,4 +12,5 @@ server:
     include-binding-errors: always
     include-message: always
 
-
+flyway:
+  locations: classpath:db/migration

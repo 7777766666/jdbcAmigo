@@ -11,7 +11,7 @@ public class MovieDataAccessService implements MovieDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
+    public MovieDataAccessService(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
 
