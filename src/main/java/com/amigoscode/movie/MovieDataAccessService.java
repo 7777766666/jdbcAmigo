@@ -19,7 +19,7 @@ public class MovieDataAccessService implements MovieDao {
     public List<Movie> selectMovies() {
         var sql = """
                 SELECT id, name, release_date
-                FROM movie
+                FROM postgres.public.movie
                 LIMIT 100;
                  """;
         return jdbcTemplate.query(sql, new MovieRowMapper());
@@ -28,7 +28,7 @@ public class MovieDataAccessService implements MovieDao {
     @Override
     public int insertMovie(Movie movie) {
         var sql = """
-                INSERT INTO movie(name, release_date)
+                INSERT INTO postgres.public.movie(name, release_date)
                 VALUES (?, ?);
                  """;
         return jdbcTemplate.update(
@@ -40,7 +40,7 @@ public class MovieDataAccessService implements MovieDao {
     @Override
     public int deleteMovie(int id) {
         var sql = """
-                DELETE FROM movie   
+                DELETE FROM postgres.public.movie   
                 WHERE id = ?
                 """;
         return jdbcTemplate.update(sql, id);
@@ -50,12 +50,23 @@ public class MovieDataAccessService implements MovieDao {
     public Optional<Movie> selectMovieById(int id) {
         var sql = """
                 SELECT id, name, release_date
-                FROM movie
+                FROM postgres.public.movie
                 WHERE id = ?
                  """;
         return jdbcTemplate.query(sql, new MovieRowMapper(), id)
                 .stream()
                 .findFirst();
+    }
+    @Override
+    public int patchMovie(Movie movie ){
+        var sql = """
+                UPDATE postgres.public.movie
+                SET name = ?, release_date = ?
+                WHERE id = ?
+                
+                """;
+        return jdbcTemplate.update(sql,
+                movie.name(), movie.releaseDate(), movie.id());
     }
 
 }

@@ -5,3 +5,4 @@ CREATE TABLE movie
     release_date DATE NOT NULL,
     unique (name)
 );
+

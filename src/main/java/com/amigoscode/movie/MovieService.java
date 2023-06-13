@@ -43,4 +43,8 @@ public class MovieService {
         return movieDao.selectMovieById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Movie with id %s not found", id)));
     }
+
+    public int patchMovie(Movie movie) {
+        return movieDao.patchMovie(movie);
+    }
 }
